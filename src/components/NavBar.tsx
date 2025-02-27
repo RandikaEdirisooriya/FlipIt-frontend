@@ -3,26 +3,21 @@
 import type React from "react"
 import { useState } from "react"
 import { ChevronLeft, User, X } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 export default function NavBar() {
   const [isSignInOpen, setIsSignInOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+ const navigate=useNavigate()
 
-  const handleSignIn = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle sign in logic here
-    console.log("Sign in with:", email, password)
-    setIsSignInOpen(false)
-  }
+
 
   return (
     <nav className="bg-black shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <button className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <button className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" onClick={() => navigate("/home")}>
               <ChevronLeft className="h-6 w-6" />
               <span className="ml-2 font-medium">Back to FlipIt</span>
             </button>
