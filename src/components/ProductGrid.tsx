@@ -8,25 +8,30 @@ import { products } from '../export';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import  Cart  from './cart';
+
+import { RootState,AppDispatch } from '../store';
+import { useDispatch, useSelector } from "react-redux";
+import { getBooksData } from "../reducers/BookReducer";
 const ProductGrid = () => {
+  const { items: books, loading, error } = useSelector((state: RootState) => state.books);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<any[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
   const resetCart = () => {
     setCartItems([]); 
   };
-   useEffect(() => {
-          AOS.init({
-              duration: 1000,
-              easing: 'ease-in-out',
-              offset: 100,
-          });
-          AOS.refresh();
-      }, []);
+  useEffect(() => {
+    dispatch(getBooksData());
+    AOS.init({ duration: 1000, easing: "ease-in-out", offset: 100 });
+  }, [dispatch]);
 
       const addToCart = (item: any) => {
         setCartItems((prev) => [...prev, item]);
         setIsCartOpen(true);
       };
+
+  if (loading) return <p>Loading products...</p>;
+  if (error) return <p>Error loading products: {error}</p>;
   return (
     <div id='products' className='w-full lg:px-20 px-5 py-[80px] bg-gray-100 flex flex-col justify-center items-center gap-4'>
 
@@ -37,7 +42,7 @@ const ProductGrid = () => {
     <div data-aos="zoom-in" data-aos-delay="300" className='w-full grid lg:grid-cols-4 grid-cols-1 justify-center items-center gap-10 mt-10'>
   
       {
-        products.map((item, index) => (
+        books.map((item, index) => (
   
           <div id='product-box' key={index} className='flex flex-col justify-center items-center gap-2 bg-white p-4 rounded-lg cursor-pointer relative'>
             <img src={item.img} alt="" />

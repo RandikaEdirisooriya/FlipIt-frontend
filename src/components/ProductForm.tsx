@@ -3,17 +3,22 @@
 import type React from "react"
 import { useState, type ChangeEvent } from "react"
 import { Upload, X } from "lucide-react"
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState,AppDispatch } from '../store';
+import { addBookData } from '../reducers/BookReducer';
 
 interface ProductFormData {
-  img: File | null
+  img: string
   category: string
   name: string
   price: string
 }
 
 export default function ProductForm() {
+  const books=useSelector((state:RootState)=>state.books.items)
+  const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState<ProductFormData>({
-    img: null,
+    img: '',
     category: "",
     name: "",
     price: "",
@@ -26,15 +31,40 @@ export default function ProductForm() {
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFormData((prev) => ({ ...prev, img: e.target.files![0] }))
+    //  setFormData((prev) => ({ ...prev, img: e.target.files![0] }))
     }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log(formData)
-    // Handle form submission here
-  }
+    e.preventDefault();
+
+    // if (!formData.img) {
+    //   alert("Please upload an image");
+    //   return;
+    // }
+
+    // Create FormData object for image upload
+    const bookData = {
+      img: 'imge',
+      category: formData.category,
+      name: formData.name,
+      
+      price: formData.price,
+       
+    };
+
+    // Dispatch Redux action
+    dispatch(addBookData(bookData));
+
+    // Reset Form
+    setFormData({
+      img: '',
+      category: "",
+      name: "",
+      price: "",
+    });
+};
+
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
@@ -57,13 +87,13 @@ export default function ProductForm() {
             {formData.img ? (
               <div className="flex items-center justify-center">
                 <img
-                  src={URL.createObjectURL(formData.img) || "/placeholder.svg"}
+                //  src={URL.createObjectURL('imge') || "/placeholder.svg"}
                   alt="Product preview"
                   className="max-h-40 rounded"
                 />
                 <button
                   type="button"
-                  onClick={() => setFormData((prev) => ({ ...prev, img: null }))}
+                //  onClick={() => setFormData((prev) => ({ ...prev, img: null }))}
                   className="absolute top-2 right-2 text-red-500 hover:text-red-700"
                 >
                   <X size={20} />

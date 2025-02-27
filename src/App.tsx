@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/Login";
-import Home from "./Home";
-import AddPost from "./AddPost";
+import Home from "./Pages/Home";
+import AddPost from "./Pages/AddPost";
 
 export default function App() {
   return (
