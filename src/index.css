@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#icons {
+    display: none; /* Initially hidden */
+}
+
+#product-box:hover #icons {
+    display: flex !important; /* Shown on hover */
+}
+
+body { /* or a specific wrapping element */
+    overflow-x: hidden; /* Prevents horizontal scroll */
+  
+}
+
+/* Optional: If you want to apply overflow-hidden to a specific div */
+.overflow-hidden-x {
+    overflow-x: hidden;
+}
