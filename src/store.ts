@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit"
 import BookReducers from "./reducers/BookReducer"
+import AuthReducers from "./reducers/AuthReducer"
 const store = configureStore({
     reducer: {
-        books: BookReducers
+        books: BookReducers,
+        authData:AuthReducers
     },
   });
   

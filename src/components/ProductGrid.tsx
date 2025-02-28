@@ -45,7 +45,7 @@ const ProductGrid = () => {
         books.map((item, index) => (
   
           <div id='product-box' key={index} className='flex flex-col justify-center items-center gap-2 bg-white p-4 rounded-lg cursor-pointer relative'>
-            <img src={item.img} alt="" />
+            <img src={products.map((item) => item.img)[index]} alt="" />
   
             <div id='icons' className='flex justify-center items-center gap-3 absolute top-[20px]'>
             <div className='bg-themePurple hover:bg-themeYellow hover:text-black rounded-full p-3 text-white'>
